@@ -4,85 +4,75 @@ console.log("app.js is running");
 
 var app = {
   title: "Indecision App",
-  subtitle: "Put the life in hands of the machine"
+  subtitle: "Put the life in hands of the machine",
+  options: []
 };
-var template = React.createElement(
-  "div",
-  null,
-  React.createElement(
-    "p",
-    null,
-    app.title
-  ),
-  React.createElement(
-    "h1",
-    null,
-    app.subtitle
-  ),
-  React.createElement(
-    "ol",
-    null,
-    React.createElement(
-      "li",
-      { key: "1" },
-      " item one"
-    ),
-    React.createElement(
-      "li",
-      { key: "2" },
-      " item two"
-    )
-  )
-);
-
-var count = 0;
-var renderCounterApp = function renderCounterApp() {
-  var templateTwo = React.createElement(
+var appRoot = document.getElementById("app");
+var renderFunction = function renderFunction() {
+  var template = React.createElement(
     "div",
     null,
     React.createElement(
+      "p",
+      null,
+      app.title
+    ),
+    React.createElement(
       "h1",
       null,
-      "Count: ",
-      count
+      app.subtitle
+    ),
+    React.createElement(
+      "p",
+      null,
+      app.options.length
     ),
     React.createElement(
       "button",
-      {
-        onClick: function onClick() {
-          count = count + 1;
-          renderCounterApp();
-          return count;
-        }
-      },
-      "+1"
+      { onClick: onRemoveAll },
+      "Remove All"
     ),
     React.createElement(
-      "button",
-      {
-        onClick: function onClick() {
-          count = count - 1;
-          renderCounterApp();
-          return count;
-        }
-      },
-      "-1"
+      "ol",
+      null,
+      React.createElement(
+        "li",
+        { key: "1" },
+        "options.one"
+      ),
+      React.createElement(
+        "li",
+        { key: "2" },
+        "options.two"
+      )
     ),
     React.createElement(
-      "button",
-      {
-        onClick: function onClick() {
-          count = 0;
-          renderCounterApp();
-        }
-      },
-      "reset"
+      "form",
+      { onSubmit: onFormSubmit },
+      React.createElement("input", { type: "text", name: "option" }),
+      React.createElement(
+        "button",
+        null,
+        "Add Option"
+      )
     )
   );
-
-  ReactDOM.render(templateTwo, appRoot);
+  ReactDOM.render(template, appRoot);
 };
 
-var appRoot = document.getElementById("app");
+var onRemoveAll = function onRemoveAll() {
+  app.options = [];
+  renderFunction();
+};
 
-renderCounterApp();
+var onFormSubmit = function onFormSubmit(e) {
+  e.preventDefault();
+  var option = e.target.elements.option.value;
+  if (option) {
+    app.options.push(option);
+    e.target.elements.option.value = "";
+  }
+  renderFunction();
+};
+
+renderFunction();

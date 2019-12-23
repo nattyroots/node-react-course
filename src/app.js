@@ -2,56 +2,43 @@ console.log("app.js is running");
 
 const app = {
   title: "Indecision App",
-  subtitle: "Put the life in hands of the machine"
+  subtitle: "Put the life in hands of the machine",
+  options: []
 };
-const template = (
-  <div>
-    <p>{app.title}</p>
-    <h1>{app.subtitle}</h1>
-    <ol>
-      <li key="1"> item one</li>
-      <li key="2"> item two</li>
-    </ol>
-  </div>
-);
-
-let count = 0;
-const renderCounterApp = () => {
-  const templateTwo = (
+const appRoot = document.getElementById("app");
+const renderFunction = () => {
+  const template = (
     <div>
-      <h1>Count: {count}</h1>
-      <button
-        onClick={() => {
-          count = count + 1;
-          renderCounterApp();
-          return count;
-        }}
-      >
-        +1
-      </button>
-      <button
-        onClick={() => {
-          count = count - 1;
-          renderCounterApp();
-          return count;
-        }}
-      >
-        -1
-      </button>
-      <button
-        onClick={() => {
-          count = 0;
-          renderCounterApp();
-        }}
-      >
-        reset
-      </button>
+      <p>{app.title}</p>
+      <h1>{app.subtitle}</h1>
+      <p>{app.options.length}</p>
+      <button onClick={onRemoveAll}>Remove All</button>
+      <ol>
+        <li key="1">options.one</li>
+        <li key="2">options.two</li>
+      </ol>
+      <form onSubmit={onFormSubmit}>
+        <input type="text" name="option"></input>
+        <button>Add Option</button>
+      </form>
     </div>
   );
-
-  ReactDOM.render(templateTwo, appRoot);
+  ReactDOM.render(template, appRoot);
 };
 
-const appRoot = document.getElementById("app");
+const onRemoveAll = () => {
+  app.options = [];
+  renderFunction();
+};
 
-renderCounterApp();
+const onFormSubmit = e => {
+  e.preventDefault();
+  const option = e.target.elements.option.value;
+  if (option) {
+    app.options.push(option);
+    e.target.elements.option.value = "";
+  }
+  renderFunction();
+};
+
+renderFunction();
