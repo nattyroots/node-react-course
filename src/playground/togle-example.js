@@ -1,12 +1,9 @@
 const appRoot = document.getElementById("app");
 
-const app = {
-  show: true
-};
+let visibility = true;
 
 const onDetailsClick = () => {
-  if (app.show) app.show = false;
-  else if (!app.show) app.show = true;
+  visibility = !visibility;
   render();
 };
 
@@ -15,9 +12,9 @@ const render = () => {
     <div>
       <h1>visibility toggle</h1>
       <button onClick={onDetailsClick}>
-        {app.show ? "hide details" : "show details"}
+        {visibility ? "hide details" : "show details"}
       </button>
-      <div>{app.show ? <div>this is the details</div> : <div></div>}</div>
+      <div>{visibility && <div>this is the details</div>}</div>
     </div>
   );
   ReactDOM.render(template, appRoot);
