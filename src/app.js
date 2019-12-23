@@ -11,7 +11,11 @@ const renderFunction = () => {
     <div>
       <p>{app.title}</p>
       <h1>{app.subtitle}</h1>
+      <p>{app.options.length > 0 ? "here are your options" : "no options"}</p>
       <p>{app.options.length}</p>
+      <button disabled={app.options.length === 0} onClick={onMakeDecision}>
+        What should I do?
+      </button>
       <button onClick={onRemoveAll}>Remove All</button>
       <ol>
         {app.options.map(option => {
@@ -27,6 +31,10 @@ const renderFunction = () => {
   ReactDOM.render(template, appRoot);
 };
 
+const onMakeDecision = () => {
+  const randomNum = Math.floor(Math.random() * app.options.length);
+  const option = app.options[randomNum];
+};
 const onRemoveAll = () => {
   app.options = [];
   renderFunction();

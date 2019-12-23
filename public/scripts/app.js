@@ -25,7 +25,17 @@ var renderFunction = function renderFunction() {
     React.createElement(
       "p",
       null,
+      app.options.length > 0 ? "here are your options" : "no options"
+    ),
+    React.createElement(
+      "p",
+      null,
       app.options.length
+    ),
+    React.createElement(
+      "button",
+      { disabled: app.options.length === 0, onClick: onMakeDecision },
+      "What should I do?"
     ),
     React.createElement(
       "button",
@@ -57,6 +67,10 @@ var renderFunction = function renderFunction() {
   ReactDOM.render(template, appRoot);
 };
 
+var onMakeDecision = function onMakeDecision() {
+  var randomNum = Math.floor(Math.random() * app.options.length);
+  var option = app.options[randomNum];
+};
 var onRemoveAll = function onRemoveAll() {
   app.options = [];
   renderFunction();
