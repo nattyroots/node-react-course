@@ -53,5 +53,4 @@ const renderCounterApp = () => {
 };
 renderCounterApp();
 
-const appRoot = document.getElementById("app");
-
+const appRoot = document.getElementById("app"); 
