@@ -25,11 +25,17 @@ class IndecisionApp extends React.Component {
   }
 
   handleAddOption(option) {
-    this.setState(prevState => {
-      return {
-        options: prevState.options.concat([option])
-      };
-    });
+    if (!option) {
+      return "Enter valid value to add item";
+    } else if (this.state.options.indexOf(option) > -1) {
+      return "this option already exists";
+    } else {
+      this.setState(prevState => {
+        return {
+          options: prevState.options.concat([option])
+        };
+      });
+    }
   }
 
   render() {

@@ -45,11 +45,17 @@ var IndecisionApp = function (_React$Component) {
   }, {
     key: "handleAddOption",
     value: function handleAddOption(option) {
-      this.setState(function (prevState) {
-        return {
-          options: prevState.options.concat([option])
-        };
-      });
+      if (!option) {
+        return "Enter valid value to add item";
+      } else if (this.state.options.indexOf(option) > -1) {
+        return "this option already exists";
+      } else {
+        this.setState(function (prevState) {
+          return {
+            options: prevState.options.concat([option])
+          };
+        });
+      }
     }
   }, {
     key: "render",
